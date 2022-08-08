@@ -6,9 +6,15 @@ export const Ticker: FC = () => {
     const [currentTime, setCurrentTime] = useState<string>('');
 
     useEffect(() => {
-        const timeInMs = Date.now();
-        const formattedTime = format(timeInMs, 'yyyy-MM-dd HH:mm:ss a');
-        setCurrentTime(formattedTime);
+        const tick = () => {
+            return setInterval(() => {
+                const timeInMs = Date.now();
+                const formattedTime = format(timeInMs, 'yyyy-MM-dd HH:mm:ss a');
+                setCurrentTime(formattedTime);
+            }, 1000);
+        }
+        const interval = tick();
+        return () => clearInterval(interval);
     }, []);
 
     return (
